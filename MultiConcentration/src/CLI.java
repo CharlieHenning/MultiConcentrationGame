@@ -1,16 +1,18 @@
 
 
-public class CLI implements UserInterface{
+public class CLI {
+	public int GridSize;
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setGridSize() {
-		// TODO Auto-generated method stub
+	public CLI(int gridSize){
+		this.GridSize = gridSize;
 		
+		//Display Grid
+		//clear screen
+		//Wait for user input
+			//Do input validation
+			//Make move
+			//Return result
+			//Display updated grid
 	}
-
+	
 }
