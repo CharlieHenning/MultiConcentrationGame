@@ -20,6 +20,32 @@ public class Logic {
 	
 	public Logic(int gridSize){
 		
+		if(!isValidInput(gridSize))
+		{
+			System.out.println("Please enter at minimum: [-g|-t] and a size for the grid (2, 4, or 6)");
+		}
+		
+		
+	}
+	
+	public boolean isValidInput(int gridSize)
+	{
+		boolean isValidGrid = false;
+		
+		if(gridSize == 2 || gridSize == 4 || gridSize == 6)
+			isValidGrid = true;
+		
+		return isValidGrid;
+	}
+	
+	public String[][] generateGameGrid(int gridSize)
+	{
+		String[][] gameGrid = new String[gridSize][gridSize];
+		
+		//Do actual logic when not in blinding pain
+		
+		
+		return gameGrid;
 	}
 	
 	public static void main(String[] args) {
