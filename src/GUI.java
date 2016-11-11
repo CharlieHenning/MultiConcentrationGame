@@ -3,6 +3,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Scanner;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -13,7 +14,21 @@ public class GUI{
 	
 	public GUI(int gridSize){
 		this.GridSize = gridSize;
+		
+		GameWindow = new JFrame();
+		GameWindow.setTitle("Multi Concentration Game");
+		GameWindow.setSize(800, 800);
+		
+		Dimension minimumSize = new Dimension(800, 800);
+		GameWindow.setMinimumSize(minimumSize);
+	
+		//Create Main Menu
+		CreateGameMenu();
+		
+		
 		CreateGameBoard(gridSize);
+		
+		
 		//Display Window
 		//Draw Letters on grid
 			//foreach element in the logic.tiles collection create a new button, start a new line based on grid size
@@ -27,15 +42,49 @@ public class GUI{
 				//evaluate if Tile.letter values match, updat display value to letter value.
 	}
 	
-	public void CreateGameBoard(int gridSize)
+	public void CreateGameMenu()
 	{
-		GameWindow = new JFrame();
-		GameWindow.setTitle("Multi Concentration Game");
-		GameWindow.setSize(800, 800);
+		JMenuBar menubar = new JMenuBar();
 		
-		Dimension minimumSize = new Dimension(800, 800);
-		GameWindow.setMinimumSize(minimumSize);
+		JMenuItem newGame = new JMenuItem("Restart Game");
+		newGame.addActionListener(new ActionListener()
+				{
+					public void actionPerformed(ActionEvent event)
+					{
+						Scanner reader = new Scanner(System.in);
+						System.out.println("Press Y to restart game");
+						String response = reader.nextLine();
+						if(response.toUpperCase().equals("Y"))
+							CreateGameBoard(GridSize);
+						reader.close();
+					}
+				});
 		
+		JMenuItem exit = new JMenuItem("Exit Game");
+		exit.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent event)
+			{
+				Scanner reader = new Scanner(System.in);
+				System.out.println("Press Y to exit game");
+				String response = reader.nextLine();
+				if(response.toUpperCase().equals("Y"))
+					System.exit(0);
+				reader.close();
+			}
+		});
+		
+		JMenuItem confirmCards = new JMenuItem("Confirm Choices");
+		
+		menubar.add(newGame);
+		menubar.add(exit);
+		menubar.add(confirmCards);
+		
+		GameWindow.setJMenuBar(menubar);
+	}
+	
+	public void CreateGameBoard(int gridSize)
+	{				
 		JPanel tileBoard = new JPanel(new GridLayout(gridSize, gridSize));
 		
 		for(int i = 0; i < (gridSize*gridSize); i++)
