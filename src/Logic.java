@@ -62,6 +62,22 @@ public class Logic {
 
 	public boolean evaluateMatch(Tile tile1, Tile tile2){
 		boolean match = tile1.getLetter() == tile2.getLetter();
+		if(match){
+			tile1.matchFound = match;
+			tile2.matchFound = match;
+		}
 		return match;
+	}
+	
+	public boolean gameFinished(ArrayList<ArrayList<Tile>> gameBoard){
+		boolean _gameFinished = true;
+		for(ArrayList<Tile> ary: gameBoard){
+			for(Tile t : ary){
+				if(!t.matchFound)
+					_gameFinished = false;
+			}
+		}
+		
+		return _gameFinished;
 	}
 }
