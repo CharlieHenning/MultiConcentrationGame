@@ -9,7 +9,11 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 
 public class GUI {
+	// Size of Game Grid, passed via Main class
 	public int GridSize;
+
+	// Length of time to show board, static for all board sizes
+	public static final int timerDelay = 5000;
 
 	// Global GUI elements
 	public JFrame gameWindow;
@@ -33,6 +37,7 @@ public class GUI {
 		// Create Main Menu
 		gameWindow.setJMenuBar(CreateGameMenu());
 
+		//Welcome Message
 		JOptionPane.showMessageDialog(gameWindow, welcomeMessage());
 
 		StartGame();
@@ -68,14 +73,16 @@ public class GUI {
 		tileBoard.revalidate();
 		tileBoard.repaint();
 
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		// Event to hide cards, cannot use Thread.sleep in Swing
+		ActionListener taskPerformer = new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				HideCards();
+				Timer time = (Timer) evt.getSource();
+				time.stop();
+			}
+		};
+		new Timer(timerDelay, taskPerformer).start();
 
-		 HideCards();
 	}
 
 	public JMenuBar CreateGameMenu() {
@@ -156,7 +163,8 @@ public class GUI {
 		for (ArrayList<Tile> subAryGameTls : gameTilesAry) {
 			for (Tile tile : subAryGameTls) {
 				TileButton<Tile> tileBtn = CreateTile(tile);
-				// Set click event on button to change background and store value
+				// Set click event on button to change background and store
+				// value
 				tileBtnAry.add(tileBtn);
 			}
 		}
@@ -185,23 +193,27 @@ public class GUI {
 					TileButton<?> clickedBtn = (TileButton<?>) e.getSource();
 					Tile tile = clickedBtn.getTile();
 
-					// Verify tile has not already been "found"
-					if (!tile.getMatchFound()) {
-						// Updating btn color when clicked
-						LineBorder btnBrdr = (LineBorder) clickedBtn.getBorder();
-						Color btnBrdrClr = btnBrdr.getLineColor();
+					// Verify User is not trying to select tiles when board
+					// shown
+					if (clickedBtn.getIcon() != null) {
+						// Verify tile has not already been "found"
+						if (!tile.getMatchFound()) {
+							// Updating btn color when clicked
+							LineBorder btnBrdr = (LineBorder) clickedBtn.getBorder();
+							Color btnBrdrClr = btnBrdr.getLineColor();
 
-						if (btnBrdrClr == Color.black) {
-							if (selectedTilesAry.size() < 2) {
-								// User selecting new tile, add id to list
-								selectedTilesAry.add(tile);
-								clickedBtn.setBorder(new LineBorder(Color.yellow, 4));
+							if (btnBrdrClr == Color.black) {
+								if (selectedTilesAry.size() < 2) {
+									// User selecting new tile, add id to list
+									selectedTilesAry.add(tile);
+									clickedBtn.setBorder(new LineBorder(Color.yellow, 4));
+								}
+							} else {
+								// User unselecting tile, remove from list
+								selectedTilesAry.remove(tile);
+								selectedTilesAry.trimToSize();
+								clickedBtn.setBorder(new LineBorder(Color.black, 4));
 							}
-						} else {
-							// User unselecting tile, remove from list
-							selectedTilesAry.remove(tile);
-							selectedTilesAry.trimToSize();
-							clickedBtn.setBorder(new LineBorder(Color.black, 4));
 						}
 					}
 				} catch (Exception exec) {
@@ -225,7 +237,7 @@ public class GUI {
 				System.exit(0);
 		}
 	}
-	
+
 	public String welcomeMessage() {
 		return "Welcome to the Concentration game! \n" + "The rules are as follows: \n"
 				+ "The screen will display a grid of Letters for a short period of time \n"
