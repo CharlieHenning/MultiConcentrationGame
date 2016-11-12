@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class CLILogic {
 	private ArrayList<ArrayList<Tile>> gameGrid;
 	private int gridSize;
+	public CLILogic(){}
 	public CLILogic(ArrayList<ArrayList<Tile>> gameGrid, int gridSize){
 		this.gameGrid = gameGrid;
 		this.gridSize = gridSize;
@@ -113,32 +114,4 @@ public class CLILogic {
 	/*
 	 * Class that tests all of the methods in this CLILogic.java file.
 	 */
-	public boolean classTest(){
-		boolean testsPass = true;
-		int testCaseNumber = 1;
-		ArrayList<ArrayList<Tile>> testGrid1 = new Logic().generateGrid(2);
-		//Coverage Tests
-		{
-		// Test Case 1
-			try{
-				int _gridSize = 1;
-				new CLILogic(new Logic().generateGrid(_gridSize), _gridSize);
-				System.out.println("Test Case " + testCaseNumber + " Passed");
-	
-			}catch (Exception e){
-				System.out.println("Test Case " + testCaseNumber + " Failed");
-	
-			}
-				testCaseNumber++;
-		}
-		
-		//Coverage Tests
-		{
-			
-			
-			
-		}
-		
-		return testsPass;
-	}
 }

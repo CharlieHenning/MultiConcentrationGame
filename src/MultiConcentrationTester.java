@@ -8,7 +8,7 @@ public class MultiConcentrationTester {
 	public static boolean ClassTest(){
 		boolean allTestsPassed = true;
 		//Perform tests here
-
+		
 		// Test Case 1
 //		try{
 //				String[] args = {"-t", "1"};
@@ -126,8 +126,119 @@ public class MultiConcentrationTester {
 //		Main.main(args);
 		return allTestsPassed;
 	}
+	
+	public static boolean CLILogicClassTest(){
+		boolean testsPass = true;
+		int testCaseNumber = 1;
+		ArrayList<ArrayList<Tile>> testGrid1 = new Logic().generateGrid(2);
+		//Coverage Tests
+		{
+		// Test Case 1
+			try{
+				int _gridSize = 2;
+				new CLILogic(new Logic().generateGrid(_gridSize), _gridSize);
+				System.out.println("Test Case " + testCaseNumber + " Passed");
+	
+			}catch (Exception e){
+				System.out.println("Test Case " + testCaseNumber + " Failed");
+	
+			}
+				testCaseNumber++;
+
+			// Test Case 2
+			try{
+				int _gridSize = 2;
+				if(new CLILogic(new Logic().generateGrid(_gridSize), _gridSize).validSelection(2, 3))
+				System.out.println("Test Case " + testCaseNumber + " Passed");
+				else
+					System.out.println("Test Case " + testCaseNumber + " Failed");	
+			}catch (Exception e){
+				System.out.println("Test Case " + testCaseNumber + " Failed");
+	
+			}
+				testCaseNumber++;
+				
+			// Test Case 3
+			try{
+				int _gridSize = 2;
+				if(new CLILogic(new Logic().generateGrid(_gridSize), _gridSize).getTile(_gridSize) != null)
+				System.out.println("Test Case " + testCaseNumber + " Passed");
+				else
+					System.out.println("Test Case " + testCaseNumber + " Failed");
+			}catch (Exception e){
+				System.out.println("Test Case " + testCaseNumber + " Failed");
+	
+			}
+				testCaseNumber++;
+			
+			// Test Case 4
+			try{
+				int _gridSize = 2;
+				new CLILogic(new Logic().generateGrid(_gridSize), _gridSize).displayGameGrid();
+				System.out.println("Test Case " + testCaseNumber + " Passed");
+			}catch (Exception e){
+				System.out.println("Test Case " + testCaseNumber + " Failed");
+	
+			}
+				testCaseNumber++;
+			// Test Case 5
+			try{
+				int _gridSize = 2;
+				new CLILogic(new Logic().generateGrid(_gridSize), _gridSize).displayLetterGrid();
+				System.out.println("Test Case " + testCaseNumber + " Passed");
+			}catch (Exception e){
+				System.out.println("Test Case " + testCaseNumber + " Failed");
+	
+			}
+				testCaseNumber++;
+			// Test Case 6
+			try{
+				int _gridSize = 2;
+				new CLILogic(new Logic().generateGrid(_gridSize), _gridSize).clearScreen();
+				System.out.println("Test Case " + testCaseNumber + " Passed");
+			}catch (Exception e){
+				System.out.println("Test Case " + testCaseNumber + " Failed");
+	
+			}
+				testCaseNumber++;
+			// Test Case 7
+			try{
+				int _gridSize = 2;
+				new CLILogic(new Logic().generateGrid(_gridSize), _gridSize).delayGame();
+				System.out.println("Test Case " + testCaseNumber + " Passed");
+			}catch (Exception e){
+				System.out.println("Test Case " + testCaseNumber + " Failed");
+	
+			}
+				testCaseNumber++;
+			// Test Case 8
+			try{
+				int _gridSize = 2;
+				new CLILogic(new Logic().generateGrid(_gridSize), _gridSize).dsplyWrongGuessLtrs(_gridSize, _gridSize+1);
+				System.out.println("Test Case " + testCaseNumber + " Passed");
+			}catch (Exception e){
+				System.out.println("Test Case " + testCaseNumber + " Failed");
+	
+			}
+				testCaseNumber++;
+		
+		
+		}
+		
+		//Bounds Tests
+		{
+			
+			
+			
+		}
+		
+		return testsPass;
+	}
+
 	public static void main(String[] args) {
-		boolean allTestsPassed = ClassTest();
+		boolean allTestsPassed = false;
+		if(CLILogicClassTest())
+			allTestsPassed= true; 
 
 		if (allTestsPassed) {
 			System.out.println("All tests successfully passed");
