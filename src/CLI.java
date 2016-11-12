@@ -116,7 +116,13 @@ public class CLI {
 		}while(!gameFinished);
 			displayGameGrid();
 		System.out.println("Congratulations! You Win!");
-			
+			System.out.println("If  you'd like to play again enter 'y' press anything else to quit");
+			if(s.nextLine().equalsIgnoreCase("y")){
+				CLI newGame = new CLI(GridSize);
+			}
+			else{
+				System.out.println("Thanks for playing!");
+			}
 		System.exit(0);
 	}
 	

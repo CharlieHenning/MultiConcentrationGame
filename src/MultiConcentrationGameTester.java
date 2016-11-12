@@ -6,7 +6,7 @@ public class MultiConcentrationGameTester {
 	public static boolean ClassTest(){
 		boolean allTestsPassed = true;
 		//Perform tests here
-		//CLI cli = new CLI(4);
+		CLI cli = new CLI(2);
 		//Auto increment test case number
 		int testCaseNumber = 1;
 
@@ -22,8 +22,8 @@ public class MultiConcentrationGameTester {
 //		testCaseNumber++;
 		
 		//Example of how to enter args into the main method of the "Main" class.
-		String[] args = {"-t", "2"};
-		Main.main(args);
+//		String[] args = {"-t", "2"};
+//		Main.main(args);
 		return allTestsPassed;
 	}
 	public static void main(String[] args) {
