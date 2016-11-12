@@ -18,7 +18,6 @@ public class GUI{
 	
 	public GUI(int gridSize){
 		this.GridSize = gridSize;
-		
 		GameWindow = new JFrame();
 		GameWindow.setTitle("Multi Concentration Game");
 		GameWindow.setSize(800, 800);
@@ -29,26 +28,23 @@ public class GUI{
 		//Calling Logic class to get ArrayList of Tiles
 		GameLogic = new Logic();
 		
-		//Create Main Menu
-		CreateGameMenu();
+		//Create Main Menu		
+		GameWindow.setJMenuBar(CreateGameMenu());
 		
-		//JOptionPane.showMessageDialog(GameWindow, "Click OK when you're ready to start!");
+		//JOptionPane.showMessageDialog(GameWindow, welcomeMessage());
 		
 		//Create GameBoard
 		CreateGameBoard(gridSize);
 
 		try {
-			Thread.sleep(10000);
+			Thread.sleep(5000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		HideCards();
-		//Display Window
-		//Draw Letters on grid
-			//foreach element in the logic.tiles collection create a new button, start a new line based on grid size
-			// I.E. row length = gridsize -1;
+		
 		//after time Redraw with numbers on the grid
 		
 		//EVENTS::
@@ -58,12 +54,35 @@ public class GUI{
 				//evaluate if Tile.letter values match, updat display value to letter value.
 	}
 	
+	
+	//Hide cards by using image and removing button text
 	public void HideCards()
 	{
 
 	}
 	
-	public void CreateGameMenu()
+	//Check if game won by examining tiles 
+	//If won, return congratulations message and ask to play again
+	public void CheckGameState()
+	{
+		if(GameLogic.gameFinished(gameTiles))
+		{
+			if(JOptionPane.showConfirmDialog(GameWindow, "Congratulations, You Win! \n" + "Press Yes to restart game", 
+					"Confirmation Dialog", JOptionPane.YES_NO_OPTION) == 0)
+			{
+				CreateGameBoard(GridSize);
+				try {
+					Thread.sleep(10000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				HideCards();
+			}
+		}
+	}
+	
+	public JMenuBar CreateGameMenu()
 	{
 		JMenuBar menubar = new JMenuBar();
 		
@@ -104,6 +123,12 @@ public class GUI{
 			public void actionPerformed(ActionEvent event)
 			{
 				//Comparing tiles stuff, if correct, reveal buttons, reset all other buttons
+				if(selectedTiles.size() >2)
+				{
+				
+					CheckGameState();
+				}
+				
 			}	
 		});
 		
@@ -111,7 +136,7 @@ public class GUI{
 		menubar.add(exit);
 		menubar.add(confirmCards);
 		
-		GameWindow.setJMenuBar(menubar);
+		return menubar;
 	}
 	
 	//Generates GameBoard.  Creates new set of cards
@@ -122,18 +147,15 @@ public class GUI{
 		
 		JPanel tileBoard = new JPanel(new GridLayout(gridSize, gridSize));
 				
-		for (int j = 0; j < gameTiles.size(); j++)
-		{
-				ArrayList<Tile> subArrayGameTiles = gameTiles.get(j);
-			
-			    for (int k = 0; k < subArrayGameTiles.size(); k++)
+		for (ArrayList<Tile> subArrayGameTiles: gameTiles)
+		{			
+			    for (Tile tile : subArrayGameTiles)
 			     {
-			    	Tile tile = subArrayGameTiles.get(k);
 			    	TileButton<Tile> button = CreateTile(tile);
 			    	//Set click event on button to change background and store value
 			    	tileBoard.add(button);
 			     }
-			}
+		}
 		
 		GameWindow.add(tileBoard);
 		GameWindow.setVisible(true);
@@ -183,6 +205,20 @@ public class GUI{
 					}
 				});
 		return button;
+	}
+	
+	
+	public String welcomeMessage(){
+		return "Welcome to the Concentration game! \n"
+				+ "The rules are as follows: \n"
+				+ "The screen will display a grid of Letters for a short period of time \n"
+				+ "and then the screen will clear and the letters of the grid will be replaced with numbers. \n"
+				+ "You must remeber where the matching numbers are and enter the corresponding numbers, one pair at a time. \n"
+				+ "Enter the two numbers on the grid you would like to flip seperated by a space I.E.: 2 4 \n"
+				+ "If the two places on the grid match the spots will display the letters you found. \n"
+				+ "If the two places on the grid you selected do not match the letters will be shown briefly and then the \n"
+				+ "grid will be redrawn.\n"
+				+ "click OK when you are ready to start!";
 	}
 	
 }
