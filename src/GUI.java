@@ -125,8 +125,10 @@ public class GUI{
 				//Comparing tiles stuff, if correct, reveal buttons, reset all other buttons
 				if(selectedTiles.size() >2)
 				{
-				
-					CheckGameState();
+					
+								CheckGameState();
+							
+					
 				}
 				
 			}	
@@ -213,8 +215,8 @@ public class GUI{
 				+ "The rules are as follows: \n"
 				+ "The screen will display a grid of Letters for a short period of time \n"
 				+ "and then the screen will clear and the letters of the grid will be replaced with numbers. \n"
-				+ "You must remeber where the matching numbers are and enter the corresponding numbers, one pair at a time. \n"
-				+ "Enter the two numbers on the grid you would like to flip seperated by a space I.E.: 2 4 \n"
+				+ "You must remember where the matching numbers are and enter the corresponding numbers, one pair at a time. \n"
+				+ "Enter the two numbers on the grid you would like to flip separated by a space I.E.: 2 4 \n"
 				+ "If the two places on the grid match the spots will display the letters you found. \n"
 				+ "If the two places on the grid you selected do not match the letters will be shown briefly and then the \n"
 				+ "grid will be redrawn.\n"
