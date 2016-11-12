@@ -10,22 +10,6 @@ public class MultiConcentration {
 		
 			if(args[0] != null){
 				String s = args[0];
-				if(s.equalsIgnoreCase("-ea")){
-					//Enable Assertions
-				}
-				if(s.equalsIgnoreCase("-g") && CLI == false){
-					GUI = true;
-				}
-				if(s.equalsIgnoreCase("-t") && GUI == false){
-					CLI = true;
-				}
-			}
-			else{
-				System.out.println("Please enter at minimum: [-g|-t] and a size for the grid (2, 4, or 6)");
-			}
-			
-			if(args[1] != null){
-				String s = args[1];
 				if(s.equalsIgnoreCase("-g") && CLI == false ){
 					GUI = true;
 				}
@@ -39,16 +23,13 @@ public class MultiConcentration {
 					}
 				}
 			}
-		}
-		else{
-			System.out.println("Please enter at minimum: [-g|-t] and a size for the grid (2, 4, or 6)");
-		}
-				
-		if(args.length > 2){
-		
+			else{
+				System.out.println("Please enter: [-g|-t] and a size for the grid (2, 4, or 6)");
+			}
+			
 			//If this arg is used we should only ever have a size int here.
-			if(args[2] != null){
-				String s = args[2];
+			if(args[1] != null){
+				String s = args[1];
 				if((CLI == true||GUI == true) && (s.equals("2")|| s.equals("4") || s.equals("6"))){
 					if(s.equals("2")|| s.equals("4") || s.equals("6")){
 						gridSize = Integer.parseInt(s);
@@ -56,7 +37,7 @@ public class MultiConcentration {
 				}
 			}
 				
-			}
+			
 			if(CLI == false && GUI == false){
 				System.out.println("Please enter a valid selection of either -g or -t in your command");
 			}
@@ -74,7 +55,11 @@ public class MultiConcentration {
 				}
 					
 			}
+		}
+		else{
+			System.out.println("Please enter: [-g|-t] and a size for the grid (2, 4, or 6)");
+		}
+			
 	}
-
 }
 
