@@ -1,6 +1,4 @@
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,6 +17,7 @@ public class GUI {
 	// Global GUI elements
 	public JFrame gameWindow;
 	public Logic gameLogic;
+	public GUILogic GUILogic;
 	public JPanel tileBoard;
 
 	// ArrayList elements
@@ -28,48 +27,39 @@ public class GUI {
 
 	public GUI(int gridSize) {
 		this.GridSize = gridSize;
-		// Calling Logic class to get ArrayList of Tiles
-		gameLogic = new Logic();
-		gameWindow = new JFrame();
-		gameWindow.setTitle("Multi Concentration Game");
-		gameWindow.setSize(800, 800);
 
-		Dimension minimumSize = new Dimension(800, 800);
-		gameWindow.setMinimumSize(minimumSize);
+		// Instantiating Logic classes to get ArrayList of Tiles
+		gameLogic = new Logic();
+		GUILogic = new GUILogic();
+
+		// Getting formatting for gameWindow JFrame
+		gameWindow = GUILogic.GetGameWindowFormatting();
 
 		// Create Main Menu
 		gameWindow.setJMenuBar(CreateGameMenu());
 
-		//Welcome Message
+		// Welcome Message
 		JOptionPane.showMessageDialog(gameWindow, gameLogic.welcomeMessage());
 
 		StartGame();
 	}
 
-	// Method to set up game
+	/*
+	 * Main Method to set up game
+	 */
 	public void StartGame() {
 		// Create GameBoard
 		CreateGameBoard(GridSize);
-
-		ShowCards();
+		ShowTiles();
 	}
 
-	// Hide cards by setting image
-	public void HideCards() {
-		for (TileButton<Tile> tileBtn : tileBtnAry) {
-			if (!tileBtn.getTile().getMatchFound())
-				tileBtn.setIcon(new ImageIcon("cardicon.png"));
-			else {
-				tileBtn.setBorder(new LineBorder(Color.black, 4));
-			}
-		}
-	}
+	/*
+	 * / Show tiles to user for 10 seconds, then hide tiles that were not found
+	 */
+	public void ShowTiles() {
+		GUILogic.RemoveTileImages(tileBtnAry);
 
-	// Show cards then hide ones that were not found
-	public void ShowCards() {
-		for (TileButton<?> tileBtn : tileBtnAry) {
-			tileBtn.setIcon(null);
-		}
+		// Redraw gameWindow and tiles, need to fix visual issues with Swing
 		gameWindow.revalidate();
 		gameWindow.repaint();
 		tileBoard.revalidate();
@@ -78,18 +68,24 @@ public class GUI {
 		// Event to hide cards, cannot use Thread.sleep in Swing
 		ActionListener taskPerformer = new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				HideCards();
+				GUILogic.HideCards(tileBtnAry);
 				Timer time = (Timer) evt.getSource();
 				time.stop();
 			}
 		};
 		new Timer(timerDelay, taskPerformer).start();
-
 	}
 
+	/*
+	 * Creates Menu Bar menu at top of GameWindow and handles all Menu Bar
+	 * events
+	 */
 	public JMenuBar CreateGameMenu() {
 		JMenuBar menuBar = new JMenuBar();
 
+		/*
+		 * New Game choice menu item and onclick event
+		 */
 		JMenuItem newGameMnuItm = new JMenuItem("Restart Game");
 		newGameMnuItm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
@@ -101,6 +97,9 @@ public class GUI {
 			}
 		});
 
+		/*
+		 * Exit choice menu item and onclick event
+		 */
 		JMenuItem exitMnuItm = new JMenuItem("Exit Game");
 		exitMnuItm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
@@ -110,6 +109,9 @@ public class GUI {
 			}
 		});
 
+		/*
+		 * Confirm choice menu item and onclick event
+		 */
 		JMenuItem confirmCardsMnuItm = new JMenuItem("Confirm Choices");
 		confirmCardsMnuItm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
@@ -136,7 +138,7 @@ public class GUI {
 					} else {
 						JOptionPane.showMessageDialog(gameWindow,
 								"Incorrect, we will show cards " + "again briefly then hide the board");
-						ShowCards();
+						ShowTiles();
 					}
 				}
 			}
@@ -149,10 +151,10 @@ public class GUI {
 		return menuBar;
 	}
 
-	// Generates GameBoard. Creates new set of cards
+	/*
+	 * Generates GameBoard. Creates new set of cards
+	 */
 	public void CreateGameBoard(int gridSize) {
-		
-
 		// Get new list of Tiles
 		gameTilesAry = gameLogic.generateGrid(gridSize);
 
@@ -164,8 +166,6 @@ public class GUI {
 		for (ArrayList<Tile> subAryGameTls : gameTilesAry) {
 			for (Tile tile : subAryGameTls) {
 				TileButton<Tile> tileBtn = CreateTile(tile);
-				// Set click event on button to change background and store
-				// value
 				tileBtnAry.add(tileBtn);
 			}
 		}
@@ -178,16 +178,14 @@ public class GUI {
 		gameWindow.setVisible(true);
 	}
 
-	// Creates single tile for gameboard. Handles TileButton parameters and
-	// events
+	/*
+	 * Creates single tile for gameboard Handles TileButton parameters and
+	 * events
+	 */
 	public TileButton<Tile> CreateTile(Tile tile) {
-		TileButton<Tile> tileBtn = new TileButton<Tile>();
-		tileBtn.setTile(tile);
-		tileBtn.setText(String.valueOf(tile.Letter));
-		tileBtn.setFont(new Font("Arial", Font.PLAIN, 40));
-		// Default tile border color
-		tileBtn.setBorder(new LineBorder(Color.black, 4));
+		TileButton<Tile> tileBtn = GUILogic.SetTileFormatting(tile);
 
+		// Adding on click event for tile
 		tileBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -225,21 +223,20 @@ public class GUI {
 		return tileBtn;
 	}
 
-	// Check if game won by examining tiles
-	// If won, return congratulations message and ask to play again
+	/*
+	 * Check if game won by examining tiles If won, return congratulations
+	 * message and ask to play again
+	 */
 	public void CheckGameState() {
 		if (gameLogic.gameFinished(gameTilesAry)) {
 			if (JOptionPane.showConfirmDialog(gameWindow,
 					"Congratulations, You Win! \n" + "Press Yes to restart game or No to quit", "Confirmation Dialog",
 					JOptionPane.YES_NO_OPTION) != 0) {
 				System.exit(0);
-			} else{
+			} else {
 				gameWindow.remove(tileBoard);
 				StartGame();
 			}
-				
 		}
 	}
-
-
 }
