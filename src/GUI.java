@@ -64,7 +64,6 @@ public class GUI {
 	}
 
 	// Show cards then hide ones that were not found
-	// TODO fix cards not hiding (setIcon null line)
 	public void ShowCards() {
 		for (TileButton<?> tileBtn : tileBtnAry) {
 			tileBtn.setIcon(null);
@@ -231,11 +230,13 @@ public class GUI {
 		if (gameLogic.gameFinished(gameTilesAry)) {
 			if (JOptionPane.showConfirmDialog(gameWindow,
 					"Congratulations, You Win! \n" + "Press Yes to restart game or No to quit", "Confirmation Dialog",
-					JOptionPane.YES_NO_OPTION) == 0) {
+					JOptionPane.YES_NO_OPTION) != 0) {
+				System.exit(0);
+			} else{
 				gameWindow.remove(tileBoard);
 				StartGame();
-			} else
-				System.exit(0);
+			}
+				
 		}
 	}
 
