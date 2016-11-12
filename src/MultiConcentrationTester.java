@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class MultiConcentrationGameTester {
+public class MultiConcentrationTester {
 
 	
 	public static boolean ClassTest(){

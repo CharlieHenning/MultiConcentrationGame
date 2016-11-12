@@ -1,5 +1,5 @@
 
-public class Main {
+public class MultiConcentration {
 
 	public static void main(String[] args) {
 		boolean CLI = false;

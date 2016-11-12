@@ -3,6 +3,8 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import org.omg.CORBA.SystemException;
+
 public class CLI {
 	public int GridSize;
 	public  ArrayList<ArrayList<Tile>> gameGrid;
@@ -62,8 +64,16 @@ public class CLI {
 			try{
 				
 				//Propt user for first tile
-				System.out.println("Please enter the number of the two tiles you would like to flip seperated by a space:");
+				System.out.println("Please enter the number of the two tiles you would like to flip seperated by a space, R to restart, or Q to quit.");
+				
 				input = s.nextLine();
+				if(input.equalsIgnoreCase("R"))
+					newGame();
+				if(input.equalsIgnoreCase("Q")){
+					System.out.println("Goodbye.");
+					System.exit(0);
+				}
+					
 				String[] strgAry = input.split(" ");
 					if(strgAry.length< 2){
 						System.out.println("Please enter two valid integers");
@@ -212,6 +222,9 @@ public class CLI {
 				System.out.println("");
 			}
 		
+	}
+	public void newGame(){
+		CLI newGame = new CLI(GridSize);
 	}
 	
 }
