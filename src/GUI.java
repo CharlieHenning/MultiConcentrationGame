@@ -10,26 +10,31 @@ import javax.swing.border.LineBorder;
 
 public class GUI{
 	public int GridSize;
-	public JFrame GameWindow;
-	public Logic GameLogic;
-	public ArrayList<ArrayList<Tile>> gameTiles;
-	public ArrayList<Tile> selectedTiles = new ArrayList<Tile>();
 	
+	//Global GUI elements
+	public JFrame gameWindow;
+	public Logic gameLogic;
+	public JPanel tileBoard;
+	
+	//ArrayList elements
+	public ArrayList<ArrayList<Tile>> gameTilesAry;
+	public ArrayList<Tile> selectedTilesAry = new ArrayList<Tile>();
+	public ArrayList<TileButton<Tile>> tileBtnAry;
 	
 	public GUI(int gridSize){
 		this.GridSize = gridSize;
-		GameWindow = new JFrame();
-		GameWindow.setTitle("Multi Concentration Game");
-		GameWindow.setSize(800, 800);
+		gameWindow = new JFrame();
+		gameWindow.setTitle("Multi Concentration Game");
+		gameWindow.setSize(800, 800);
 		
 		Dimension minimumSize = new Dimension(800, 800);
-		GameWindow.setMinimumSize(minimumSize);
+		gameWindow.setMinimumSize(minimumSize);
 	
 		//Calling Logic class to get ArrayList of Tiles
-		GameLogic = new Logic();
+		gameLogic = new Logic();
 		
 		//Create Main Menu		
-		GameWindow.setJMenuBar(CreateGameMenu());
+		gameWindow.setJMenuBar(CreateGameMenu());
 		
 		//JOptionPane.showMessageDialog(GameWindow, welcomeMessage());
 		
@@ -56,23 +61,48 @@ public class GUI{
 	
 	
 	//Hide cards by using image and removing button text
+	//TODO NOT DONE
 	public void HideCards()
 	{
-
+		for(TileButton<?> tileButton : tileBtnAry)
+		{
+			tileButton.setIcon(new ImageIcon("cardicon.png"));
+		}
+	}
+	
+	//TODO NOT DONE
+	public void ShowCards()
+	{
+		for(TileButton<?> tileButton : tileBtnAry)
+		{
+			tileButton.setIcon(null);
+		}
+		
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		for(TileButton<?> tileButton : tileBtnAry)
+		{
+			tileButton.setIcon(new ImageIcon("cardicon.png"));
+		}
 	}
 	
 	//Check if game won by examining tiles 
 	//If won, return congratulations message and ask to play again
 	public void CheckGameState()
 	{
-		if(GameLogic.gameFinished(gameTiles))
+		if(gameLogic.gameFinished(gameTilesAry))
 		{
-			if(JOptionPane.showConfirmDialog(GameWindow, "Congratulations, You Win! \n" + "Press Yes to restart game", 
+			if(JOptionPane.showConfirmDialog(gameWindow, "Congratulations, You Win! \n" + "Press Yes to restart game", 
 					"Confirmation Dialog", JOptionPane.YES_NO_OPTION) == 0)
 			{
 				CreateGameBoard(GridSize);
 				try {
-					Thread.sleep(10000);
+					Thread.sleep(5000);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -91,12 +121,12 @@ public class GUI{
 				{
 					public void actionPerformed(ActionEvent event)
 					{
-						if(JOptionPane.showConfirmDialog(GameWindow, "Press Yes to restart game", 
+						if(JOptionPane.showConfirmDialog(gameWindow, "Press Yes to restart game", 
 								"Confirmation Dialog", JOptionPane.YES_NO_OPTION) == 0)
 						{
 							CreateGameBoard(GridSize);
 							try {
-								Thread.sleep(10000);
+								Thread.sleep(5000);
 							} catch (InterruptedException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
@@ -111,7 +141,7 @@ public class GUI{
 		{
 			public void actionPerformed(ActionEvent event)
 			{
-				if(JOptionPane.showConfirmDialog(GameWindow, "Press Yes to exit game", 
+				if(JOptionPane.showConfirmDialog(gameWindow, "Press Yes to exit game", 
 						"Confirmation Dialog", JOptionPane.YES_NO_OPTION) == 0)
 					System.exit(0);
 			}
@@ -123,12 +153,42 @@ public class GUI{
 			public void actionPerformed(ActionEvent event)
 			{
 				//Comparing tiles stuff, if correct, reveal buttons, reset all other buttons
-				if(selectedTiles.size() >2)
+				if(selectedTilesAry.size() >2)
 				{
-					
+					//Sending selected tiles to logic class for eval
+					if(gameLogic.evaluateMatch(selectedTilesAry.get(0), selectedTilesAry.get(1)))
+							{
+								for(Tile selectedTile: selectedTilesAry)
+								{
+									for (ArrayList<Tile> subArrayGameTiles: gameTilesAry)
+									{			
+									    for (Tile gameBoardTile : subArrayGameTiles)
+									     {
+									    	if(gameBoardTile.ID == selectedTile.ID && gameBoardTile.Letter == selectedTile.Letter)
+									    	{
+									    		gameBoardTile.setMatchFound(true);
+									    	}
+									     }
+									}
+									//TODO NOT DONE
+									for(TileButton<?> tileBtn : tileBtnAry)
+									{
+										Tile tile = tileBtn.getTile();
+										
+										if(tile.ID == selectedTile.ID && tile.Letter == selectedTile.Letter)
+								    	{
+											tileBtn.setBorder(new LineBorder(Color.black, 4));
+											
+								    	}
+									}
+								}
 								CheckGameState();
-							
-					
+							}
+					else
+					{
+						//TODO NOT DONE
+						ShowCards();
+					}
 				}
 				
 			}	
@@ -145,22 +205,29 @@ public class GUI{
 	public void CreateGameBoard(int gridSize)
 	{
 		//Get new list of Tiles 
-		gameTiles = GameLogic.generateGrid(gridSize);
+		gameTilesAry = gameLogic.generateGrid(gridSize);
 		
-		JPanel tileBoard = new JPanel(new GridLayout(gridSize, gridSize));
-				
-		for (ArrayList<Tile> subArrayGameTiles: gameTiles)
+		tileBoard = new JPanel(new GridLayout(gridSize, gridSize));
+		
+		//Create new Btn array, used to track items for evaluation methods
+		tileBtnAry = new ArrayList<TileButton<Tile>>();
+		
+		for (ArrayList<Tile> subArrayGameTiles: gameTilesAry)
 		{			
 			    for (Tile tile : subArrayGameTiles)
 			     {
 			    	TileButton<Tile> button = CreateTile(tile);
 			    	//Set click event on button to change background and store value
-			    	tileBoard.add(button);
+			    	tileBtnAry.add(button);
 			     }
 		}
+
+		//Add buttons from array to JPanel
+		for(TileButton<Tile> button : tileBtnAry)
+			tileBoard.add(button);
 		
-		GameWindow.add(tileBoard);
-		GameWindow.setVisible(true);
+		gameWindow.add(tileBoard);
+		gameWindow.setVisible(true);
 	}
 	
 	//Creates tile for gameboard.  Handles button parameters
@@ -185,18 +252,18 @@ public class GUI{
 							
 							if(btnBrdrClr == Color.black)
 								{
-									if(selectedTiles.size()< 2)
+									if(selectedTilesAry.size()< 2)
 									{
 										//User selecting new tile, add id to list
-										selectedTiles.add(btnTile);
+										selectedTilesAry.add(btnTile);
 										clickedButton.setBorder(new LineBorder(Color.yellow, 4));						
 									}
 								}
 							else
 								{
 									//User unselecting tile, remove from list								
-									selectedTiles.remove(btnTile);
-									selectedTiles.trimToSize();
+									selectedTilesAry.remove(btnTile);
+									selectedTilesAry.trimToSize();
 									clickedButton.setBorder(new LineBorder(Color.black, 4));
 								}						
 						}
