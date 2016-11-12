@@ -14,7 +14,7 @@ public class GUI {
 	public int GridSize;
 
 	// Length of time to show board, static for all board sizes
-	public static final int timerDelay = 5000;
+	public static final int timerDelay = 10000;
 
 	// Global GUI elements
 	public JFrame gameWindow;

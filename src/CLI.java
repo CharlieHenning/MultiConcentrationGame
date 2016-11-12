@@ -184,9 +184,9 @@ public class CLI {
 	}
 	
 	public void delayGame(){
-		//Waits for 5 seconds
+		//Waits for 10 seconds
 		try {
-			Thread.sleep(5000);
+			Thread.sleep(10000);
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
