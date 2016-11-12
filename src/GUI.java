@@ -33,7 +33,7 @@ public class GUI {
 		// Create Main Menu
 		gameWindow.setJMenuBar(CreateGameMenu());
 
-		// JOptionPane.showMessageDialog(GameWindow, welcomeMessage());
+		JOptionPane.showMessageDialog(gameWindow, welcomeMessage());
 
 		StartGame();
 	}
@@ -156,8 +156,7 @@ public class GUI {
 		for (ArrayList<Tile> subAryGameTls : gameTilesAry) {
 			for (Tile tile : subAryGameTls) {
 				TileButton<Tile> tileBtn = CreateTile(tile);
-				// Set click event on button to change background and store
-				// value
+				// Set click event on button to change background and store value
 				tileBtnAry.add(tileBtn);
 			}
 		}
