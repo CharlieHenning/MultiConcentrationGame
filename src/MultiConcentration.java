@@ -1,13 +1,14 @@
 
 public class MultiConcentration {
 
+	/*
+	 * Main method that drives the MultiConcentrationGame
+	 */
 	public static void main(String[] args) {
 		boolean CLI = false;
 		boolean GUI = false;
 		int gridSize= -1;
-	
 		if(args.length > 1){
-		
 			if(args[0] != null){
 				String s = args[0];
 				if(s.equalsIgnoreCase("-g") && CLI == false ){
@@ -26,7 +27,6 @@ public class MultiConcentration {
 			else{
 				System.out.println("Please enter: [-g|-t] and a size for the grid (2, 4, or 6)");
 			}
-			
 			//If this arg is used we should only ever have a size int here.
 			if(args[1] != null){
 				String s = args[1];
@@ -36,13 +36,13 @@ public class MultiConcentration {
 					}
 				}
 			}
-				
-			
 			if(CLI == false && GUI == false){
 				System.out.println("Please enter a valid selection of either -g or -t in your command");
+				System.out.println(Thread.currentThread().getStackTrace());
 			}
 			if(gridSize == -1){
 				System.out.println("Please enter a valid grid size of 2, 4, or 6");
+				System.out.println(Thread.currentThread().getStackTrace());
 			}
 			
 			if((CLI == true ||GUI == true) && gridSize != -1){
@@ -53,11 +53,11 @@ public class MultiConcentration {
 				else if(GUI == true){
 					GUI userInterface = new GUI(gridSize);
 				}
-					
 			}
 		}
 		else{
 			System.out.println("Please enter: [-g|-t] and a size for the grid (2, 4, or 6)");
+			System.out.println(Thread.currentThread().getStackTrace());
 		}
 			
 	}

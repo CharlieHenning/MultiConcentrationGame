@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 
+/*
+ * Logic class that serves only the CLI interface.
+ */
 public class CLILogic {
 	private ArrayList<ArrayList<Tile>> gameGrid;
 	private int gridSize;
@@ -112,6 +115,29 @@ public class CLILogic {
 	 */
 	public boolean classTest(){
 		boolean testsPass = true;
+		int testCaseNumber = 1;
+		ArrayList<ArrayList<Tile>> testGrid1 = new Logic().generateGrid(2);
+		//Coverage Tests
+		{
+		// Test Case 1
+			try{
+				int _gridSize = 1;
+				new CLILogic(new Logic().generateGrid(_gridSize), _gridSize);
+				System.out.println("Test Case " + testCaseNumber + " Passed");
+	
+			}catch (Exception e){
+				System.out.println("Test Case " + testCaseNumber + " Failed");
+	
+			}
+				testCaseNumber++;
+		}
+		
+		//Coverage Tests
+		{
+			
+			
+			
+		}
 		
 		return testsPass;
 	}

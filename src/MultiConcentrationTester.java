@@ -2,24 +2,124 @@ import java.util.ArrayList;
 
 public class MultiConcentrationTester {
 
+	//Auto increment test case number
+	public static int testCaseNumber = 1;
 	
 	public static boolean ClassTest(){
 		boolean allTestsPassed = true;
 		//Perform tests here
-		GUI gui = new GUI(2);
-		//Auto increment test case number
-		int testCaseNumber = 1;
 
-		//Example test case
-		
 		// Test Case 1
-//		if (new BasicTokenizer("", " ", true).countTokens() == 0) {
+//		try{
+//				String[] args = {"-t", "1"};
+//			MultiConcentration.main(args);
 //			System.out.println("Test Case " + testCaseNumber + " Passed");
-//		} else {
+//		}
+//		catch(Exception e){
 //			allTestsPassed = false;
 //			System.out.println("Test Case " + testCaseNumber + " Failed");
+//
 //		}
 //		testCaseNumber++;
+//		// Test Case 2
+//		try{
+//				String[] args = {"-t", "2"};
+//			MultiConcentration.main(args);
+//			System.out.println("Test Case " + testCaseNumber + " Passed");
+//		}
+//		catch(Exception e){
+//			allTestsPassed = false;
+//			System.out.println("Test Case " + testCaseNumber + " Failed");
+//
+//		}
+//		testCaseNumber++;
+//		// Test Case 3
+//		try{
+//				String[] args = {"-t", "3"};
+//			MultiConcentration.main(args);
+//			System.out.println("Test Case " + testCaseNumber + " Passed");
+//		}
+//		catch(Exception e){
+//			allTestsPassed = false;
+//			System.out.println("Test Case " + testCaseNumber + " Failed");
+//
+//		}
+//		testCaseNumber++;
+//		// Test Case 4
+//		try{
+//				String[] args = {"-t", "4"};
+//			MultiConcentration.main(args);
+//			System.out.println("Test Case " + testCaseNumber + " Passed");
+//		}
+//		catch(Exception e){
+//			allTestsPassed = false;
+//			System.out.println("Test Case " + testCaseNumber + " Failed");
+//
+//		}
+//		testCaseNumber++;
+//		// Test Case 5
+//		try{
+//				String[] args = {"-t", "5"};
+//			MultiConcentration.main(args);
+//			System.out.println("Test Case " + testCaseNumber + " Passed");
+//		}
+//		catch(Exception e){
+//			allTestsPassed = false;
+//			System.out.println("Test Case " + testCaseNumber + " Failed");
+//
+//		}
+//		testCaseNumber++;
+//		// Test Case 6
+//		try{
+//				String[] args = {"-t", "6"};
+//			MultiConcentration.main(args);
+//			System.out.println("Test Case " + testCaseNumber + " Passed");
+//		}
+//		catch(Exception e){
+//			allTestsPassed = false;
+//			System.out.println("Test Case " + testCaseNumber + " Failed");
+//
+//		}
+//		testCaseNumber++;
+//		// Test Case 7
+//		try{
+//				String[] args = {"-t", "7"};
+//			MultiConcentration.main(args);
+//			System.out.println("Test Case " + testCaseNumber + " Passed");
+//		}
+//		catch(Exception e){
+//			allTestsPassed = false;
+//			System.out.println("Test Case " + testCaseNumber + " Failed");
+//
+//		}
+//		testCaseNumber++;
+//		// Test Case 8
+//		try{
+//				String[] args = {"-t", "8"};
+//			MultiConcentration.main(args);
+//			System.out.println("Test Case " + testCaseNumber + " Passed");
+//		}
+//		catch(Exception e){
+//			allTestsPassed = false;
+//			System.out.println("Test Case " + testCaseNumber + " Failed");
+//		
+//		}
+//		testCaseNumber++;
+//		// Test Case 8
+//		try{
+//				String[] args = {"-t", "8"};
+//			MultiConcentration.main(args);
+//			System.out.println("Test Case " + testCaseNumber + " Passed");
+//		}
+//		catch(Exception e){
+//			allTestsPassed = false;
+//			System.out.println("Test Case " + testCaseNumber + " Failed");
+//		
+//		}
+//		testCaseNumber++;
+//		
+//		
+//		
 		
 		//Example of how to enter args into the main method of the "Main" class.
 //		String[] args = {"-t", "2"};

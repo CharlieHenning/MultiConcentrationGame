@@ -2,12 +2,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
+/*
+ * Class for general logic to be used by the GUI and CLI interfaces.
+ */
 public class Logic {
 
-	//Grid will have to be an even number of tiles, otherwise one tile will either be already visible, or un-solvable. 
-	public List<Integer> ALLOWED_VALUES = Collections.unmodifiableList(Arrays.asList(2,4,6));
-
+	/*
+	 * This function creates a grid filled with tiles objects and depends on the
+	 * Tile class and the generateCharList method.
+	 */
 	public ArrayList<ArrayList<Tile>> generateGrid(int gridSize){
 		//Create 2D grid arrayList
 		ArrayList<ArrayList<Tile>> tiles = new ArrayList<ArrayList<Tile>>();
@@ -38,7 +41,9 @@ public class Logic {
 		
 		return tiles;
 	}
-	
+	/*
+	 * This function generates a string of random letters based on the size of a grid.
+	 */
 	public String generateCharList(int gridSize){
 		String charList = "";	
 		String returnString = "";
@@ -58,7 +63,10 @@ public class Logic {
 		
 		return returnString;
 	}
-
+	/*
+	 * Evaluate Match determins if the char value in both of these tiles is equivalent.
+	 * If the values match the "matchFound" value will be set to true in the tile objects.
+	 */
 	public boolean evaluateMatch(Tile tile1, Tile tile2){
 		boolean match = tile1.getLetter() == tile2.getLetter();
 		if(match){
@@ -67,7 +75,11 @@ public class Logic {
 		}
 		return match;
 	}
-	
+	/*
+	 * Game finished takes in a array list of array lists that contain tile objects
+	 * if all of the tile objects "matchfound" value is true then the game is over
+	 * and this function will return true. Otherwise this function will return false.
+	 */
 	public boolean gameFinished(ArrayList<ArrayList<Tile>> gameBoard){
 		boolean _gameFinished = true;
 		for(ArrayList<Tile> ary: gameBoard){
@@ -79,7 +91,9 @@ public class Logic {
 		
 		return _gameFinished;
 	}
-
+/*
+ * The Welcome Message is stored in this central location so all of the interfaces can get to it easily.
+ */
 	public String welcomeMessage(){
 		return "Welcome to the Concentration game! \n" + "The rules are as follows: \n"
 				+ "The screen will display a grid of Letters for a short period of time \n"
@@ -90,5 +104,14 @@ public class Logic {
 				+ "If the two places on the grid you selected do not match the letters will be shown briefly and then the \n"
 				+ "grid will be redrawn.\n" + "click OK when you are ready to start!";
 	
+	}
+
+	/*
+	 * Class that tests all of the methods in this Logic.java file.
+	 */
+	public boolean classTest(){
+		boolean testsPass = true;
+		
+		return testsPass;
 	}
 }
