@@ -49,7 +49,6 @@ public class Logic {
 			
 		}
 		assert charList.length() == gridSize * gridSize;
-		System.out.println(charList);
 		List<String> letters = Arrays.asList(charList.split(""));
 		Collections.shuffle(letters);
 		for(String letter: letters){

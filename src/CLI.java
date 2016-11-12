@@ -28,7 +28,7 @@ public class CLI {
 			
 			System.out.println("To begin playing enter 'y', 'q' to quit or anything else to see the directions again.");
 			//startGame
-			String input = s.next();
+			String input = s.nextLine();
 			if(input.equalsIgnoreCase("y")){
 				playGame();
 			}
@@ -54,18 +54,31 @@ public class CLI {
 			int choice1 = -1; 
 			int choice2 = -1;
 			boolean goodInput = true;
+			String input;
 			//Displays the game board
 			displayGameGrid();
-
+			s.reset();
 			//Take in user input
 			try{
+				
 				//Propt user for first tile
-				System.out.println("Please enter the number of the two tiles you would like to flip:");
-				//Get first int
-				choice1 = s.nextInt();
-				//Get second int
-				choice2 = s.nextInt();
-				//Be sure they aren't the same int
+				System.out.println("Please enter the number of the two tiles you would like to flip seperated by a space:");
+				input = s.nextLine();
+				String[] strgAry = input.split(" ");
+					if(strgAry.length< 2){
+						System.out.println("Please enter two valid integers");
+						continue;
+					}
+					else if(strgAry.length == 2){
+						//Get first int
+						choice1 = Integer.parseInt(strgAry[0]);
+						//Get second int
+						choice2 = Integer.parseInt(strgAry[1]);
+					}
+					else{
+						System.out.println("Please enter two valid integers");
+						continue;
+					}
 				if(choice1 == choice2){
 					System.out.println("Please enter two different integers");
 					//Repeat loop if values are bad
@@ -101,6 +114,9 @@ public class CLI {
 			}		
 			//If game is not finished repeat loop
 		}while(!gameFinished);
+			displayGameGrid();
+		System.out.println("Congratulations! You Win!");
+			
 		System.exit(0);
 	}
 	
