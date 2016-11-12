@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -183,7 +184,7 @@ public class GUI {
 		TileButton<Tile> tileBtn = new TileButton<Tile>();
 		tileBtn.setTile(tile);
 		tileBtn.setText(String.valueOf(tile.Letter));
-
+		tileBtn.setFont(new Font("Arial", Font.PLAIN, 40));
 		// Default tile border color
 		tileBtn.setBorder(new LineBorder(Color.black, 4));
 
