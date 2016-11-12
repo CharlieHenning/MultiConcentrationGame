@@ -43,14 +43,7 @@ public class GUI {
 		// Create GameBoard
 		CreateGameBoard(GridSize);
 
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		HideCards();
+		ShowCards();
 	}
 
 	// Hide cards by setting image
@@ -64,9 +57,9 @@ public class GUI {
 		}
 	}
 
-	// SHow cards then hide ones that were not found
+	// Show cards then hide ones that were not found
+	// TODO fix cards not hiding (setIcon null line)
 	public void ShowCards() {
-		// TODO FIX
 		for (TileButton<?> tileBtn : tileBtnAry) {
 			tileBtn.setIcon(null);
 		}
@@ -82,22 +75,7 @@ public class GUI {
 			e.printStackTrace();
 		}
 
-		// HideCards();
-
-	}
-
-	// Check if game won by examining tiles
-	// If won, return congratulations message and ask to play again
-	public void CheckGameState() {
-		if (gameLogic.gameFinished(gameTilesAry)) {
-			if (JOptionPane.showConfirmDialog(gameWindow,
-					"Congratulations, You Win! \n" + "Press Yes to restart game or No to quit", "Confirmation Dialog",
-					JOptionPane.YES_NO_OPTION) == 0) {
-				gameWindow.remove(tileBoard);
-				StartGame();
-			} else
-				System.exit(0);
-		}
+		 HideCards();
 	}
 
 	public JMenuBar CreateGameMenu() {
@@ -235,6 +213,20 @@ public class GUI {
 		return tileBtn;
 	}
 
+	// Check if game won by examining tiles
+	// If won, return congratulations message and ask to play again
+	public void CheckGameState() {
+		if (gameLogic.gameFinished(gameTilesAry)) {
+			if (JOptionPane.showConfirmDialog(gameWindow,
+					"Congratulations, You Win! \n" + "Press Yes to restart game or No to quit", "Confirmation Dialog",
+					JOptionPane.YES_NO_OPTION) == 0) {
+				gameWindow.remove(tileBoard);
+				StartGame();
+			} else
+				System.exit(0);
+		}
+	}
+	
 	public String welcomeMessage() {
 		return "Welcome to the Concentration game! \n" + "The rules are as follows: \n"
 				+ "The screen will display a grid of Letters for a short period of time \n"
