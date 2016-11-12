@@ -3,7 +3,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Scanner;
+import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -11,6 +11,10 @@ import javax.swing.border.LineBorder;
 public class GUI{
 	public int GridSize;
 	public JFrame GameWindow;
+	public Logic GameLogic;
+	public ArrayList<ArrayList<Tile>> gameTiles;
+	public ArrayList<Tile> selectedTiles = new ArrayList<Tile>();
+	
 	
 	public GUI(int gridSize){
 		this.GridSize = gridSize;
@@ -22,13 +26,25 @@ public class GUI{
 		Dimension minimumSize = new Dimension(800, 800);
 		GameWindow.setMinimumSize(minimumSize);
 	
+		//Calling Logic class to get ArrayList of Tiles
+		GameLogic = new Logic();
+		
 		//Create Main Menu
 		CreateGameMenu();
 		
+		//JOptionPane.showMessageDialog(GameWindow, "Click OK when you're ready to start!");
 		
+		//Create GameBoard
 		CreateGameBoard(gridSize);
+
+		try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		
+		HideCards();
 		//Display Window
 		//Draw Letters on grid
 			//foreach element in the logic.tiles collection create a new button, start a new line based on grid size
@@ -42,6 +58,11 @@ public class GUI{
 				//evaluate if Tile.letter values match, updat display value to letter value.
 	}
 	
+	public void HideCards()
+	{
+
+	}
+	
 	public void CreateGameMenu()
 	{
 		JMenuBar menubar = new JMenuBar();
@@ -51,12 +72,18 @@ public class GUI{
 				{
 					public void actionPerformed(ActionEvent event)
 					{
-						Scanner reader = new Scanner(System.in);
-						System.out.println("Press Y to restart game");
-						String response = reader.nextLine();
-						if(response.toUpperCase().equals("Y"))
+						if(JOptionPane.showConfirmDialog(GameWindow, "Press Yes to restart game", 
+								"Confirmation Dialog", JOptionPane.YES_NO_OPTION) == 0)
+						{
 							CreateGameBoard(GridSize);
-						reader.close();
+							try {
+								Thread.sleep(10000);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							HideCards();
+						}
 					}
 				});
 		
@@ -65,16 +92,20 @@ public class GUI{
 		{
 			public void actionPerformed(ActionEvent event)
 			{
-				Scanner reader = new Scanner(System.in);
-				System.out.println("Press Y to exit game");
-				String response = reader.nextLine();
-				if(response.toUpperCase().equals("Y"))
+				if(JOptionPane.showConfirmDialog(GameWindow, "Press Yes to exit game", 
+						"Confirmation Dialog", JOptionPane.YES_NO_OPTION) == 0)
 					System.exit(0);
-				reader.close();
 			}
 		});
 		
 		JMenuItem confirmCards = new JMenuItem("Confirm Choices");
+		confirmCards.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent event)
+			{
+				//Comparing tiles stuff, if correct, reveal buttons, reset all other buttons
+			}	
+		});
 		
 		menubar.add(newGame);
 		menubar.add(exit);
@@ -83,46 +114,67 @@ public class GUI{
 		GameWindow.setJMenuBar(menubar);
 	}
 	
+	//Generates GameBoard.  Creates new set of cards
 	public void CreateGameBoard(int gridSize)
-	{				
-		JPanel tileBoard = new JPanel(new GridLayout(gridSize, gridSize));
+	{
+		//Get new list of Tiles 
+		gameTiles = GameLogic.generateGrid(gridSize);
 		
-		for(int i = 0; i < (gridSize*gridSize); i++)
+		JPanel tileBoard = new JPanel(new GridLayout(gridSize, gridSize));
+				
+		for (int j = 0; j < gameTiles.size(); j++)
 		{
-			JButton button = CreateTile();
-			//Set click event on button to change background and store value
-			tileBoard.add(button);
-		}
+				ArrayList<Tile> subArrayGameTiles = gameTiles.get(j);
+			
+			    for (int k = 0; k < subArrayGameTiles.size(); k++)
+			     {
+			    	Tile tile = subArrayGameTiles.get(k);
+			    	TileButton<Tile> button = CreateTile(tile);
+			    	//Set click event on button to change background and store value
+			    	tileBoard.add(button);
+			     }
+			}
+		
 		GameWindow.add(tileBoard);
 		GameWindow.setVisible(true);
 	}
 	
-	public JButton CreateTile()
+	//Creates tile for gameboard.  Handles button parameters
+	public TileButton<Tile> CreateTile(Tile tile)
 	{
-		int counterdeleteme = 1;
-		JButton button = new JButton();
-		button.setIcon(new ImageIcon("cardicon.png"));
+		TileButton<Tile> button = new TileButton<Tile>();
 		button.setBorder(new LineBorder(Color.black, 4));
-		button.setName("SampleButtonName" + counterdeleteme);
-		counterdeleteme++;
+		button.setTile(tile);
+		button.setText(String.valueOf(tile.Letter));
+		
 		button.addActionListener(new ActionListener()
 				{
 					public void actionPerformed(ActionEvent e) 
 					{
 						try
 						{
-							JButton clickedButton = (JButton)e.getSource();
+							TileButton<?> clickedButton = (TileButton<?>)e.getSource();
+							Tile btnTile = (Tile) clickedButton.getTile();
 							//Updating btn color when clicked
 							LineBorder btnBrdr = (LineBorder) clickedButton.getBorder();
-							Color btnBkgrndClr = btnBrdr.getLineColor();
-							if(btnBkgrndClr == Color.black)
-							{
-								clickedButton.setBorder(new LineBorder(Color.yellow, 4));
-							}
-							else
-								clickedButton.setBorder(new LineBorder(Color.black, 4));
+							Color btnBrdrClr = btnBrdr.getLineColor();
 							
-							//Need to get btn content and store for comparision
+							if(btnBrdrClr == Color.black)
+								{
+									if(selectedTiles.size()< 2)
+									{
+										//User selecting new tile, add id to list
+										selectedTiles.add(btnTile);
+										clickedButton.setBorder(new LineBorder(Color.yellow, 4));						
+									}
+								}
+							else
+								{
+									//User unselecting tile, remove from list								
+									selectedTiles.remove(btnTile);
+									selectedTiles.trimToSize();
+									clickedButton.setBorder(new LineBorder(Color.black, 4));
+								}						
 						}
 						catch(Exception exec)
 						{
@@ -133,5 +185,4 @@ public class GUI{
 		return button;
 	}
 	
-
 }
