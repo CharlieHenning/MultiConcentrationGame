@@ -6,7 +6,7 @@ public class MultiConcentrationTester {
 	public static boolean ClassTest(){
 		boolean allTestsPassed = true;
 		//Perform tests here
-		CLI cli = new CLI(2);
+		GUI gui = new GUI(2);
 		//Auto increment test case number
 		int testCaseNumber = 1;
 

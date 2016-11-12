@@ -26,7 +26,7 @@ public class CLI {
 		
 		do{
 			//Welcome and rules are displayed
-			System.out.println(welcomeMessage());
+			System.out.println(logicClass.welcomeMessage());
 			
 			System.out.println("To begin playing enter 'y', 'q' to quit or anything else to see the directions again.");
 			//startGame
@@ -128,7 +128,7 @@ public class CLI {
 		System.out.println("Congratulations! You Win!");
 			System.out.println("If  you'd like to play again enter 'y' press anything else to quit");
 			if(s.nextLine().equalsIgnoreCase("y")){
-				CLI newGame = new CLI(GridSize);
+				newGame();
 			}
 			else{
 				System.out.println("Thanks for playing!");
@@ -153,18 +153,6 @@ public class CLI {
 				break;
 		}
 		return tempTile;
-	}
-	
-	public String welcomeMessage(){
-		return "Welcome to the Concentration game! \n"
-				+ "The rules are as follows: \n"
-				+ "The screen will display a grid of Letters for a short period of time \n"
-				+ "and then the screen will clear and the letters of the grid will be replaced with numbers. \n"
-				+ "You must remember where the matching numbers are and enter the corresponding numbers, one pair at a time. \n"
-				+ "Enter the two numbers on the grid you would like to flip separated by a space I.E.: 2 4 \n"
-				+ "If the two places on the grid match the spots will display the letters you found. \n"
-				+ "If the two places on the grid you selected do not match the letters will be shown briefly and then the \n"
-				+ "grid will be redrawn.";
 	}
 	
 	public void displayGameGrid(){
