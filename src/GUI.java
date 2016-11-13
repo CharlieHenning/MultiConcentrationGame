@@ -39,7 +39,7 @@ public class GUI {
 		gameWindow.setJMenuBar(CreateGameMenu());
 
 		// Welcome Message
-		JOptionPane.showMessageDialog(gameWindow, gameLogic.welcomeMessage());
+		JOptionPane.showMessageDialog(gameWindow, GUILogic.welcomeMessage());
 
 		StartGame();
 	}

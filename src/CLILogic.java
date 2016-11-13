@@ -26,7 +26,7 @@ public class CLILogic {
 		Tile tempTile = null;
 		for(ArrayList<Tile> ary: gameGrid){
 			for(Tile t : ary){
-				if(t.ID == tileID){
+				if(t.getID() == tileID){
 					tempTile = t;
 					break;
 				}
@@ -40,19 +40,19 @@ public class CLILogic {
 	 * found the ID number will be printed.
 	 */
 	public void displayGameGrid(){
-		if(gameGrid != null){
+
 			for(ArrayList<Tile> ary: gameGrid){
 			for(Tile t : ary){
 				if(t.matchFound){
 					System.out.print(t.Letter+ "  ");
 				}
 				else{
-					System.out.print(t.ID + "  ");
+					System.out.print(t.getID() + "  ");
 				}
 			}
 				System.out.println("");
 			}
-		}
+		
 	}
 	/*
 	 * Displays all of the letters for the tiles in the game grid on the console.
@@ -80,7 +80,7 @@ public class CLILogic {
 	public void delayGame(){
 		//Waits for 10 seconds
 		try {
-			Thread.sleep(10000);
+			Thread.sleep(1);
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -105,13 +105,19 @@ public class CLILogic {
 			}
 		
 	}
+
 	/*
-	 *Creates a new instance on the CLI class to restart the game. 
+	 * The Welcome Message is stored in this central location so all of the interfaces can get to it easily.
 	 */
-	public void newGame(){
-		CLI newGame = new CLI(gridSize);
-	}
-	/*
-	 * Class that tests all of the methods in this CLILogic.java file.
-	 */
+		public String welcomeMessage(){
+			return "Welcome to the Concentration game! \n" + "The rules are as follows: \n"
+					+ "The screen will display a grid of Letters for a short period of time \n"
+					+ "and then the screen will clear and the letters of the grid will be replaced with numbers. \n"
+					+ "You must remember where the matching numbers are and enter the corresponding numbers, one pair at a time. \n"
+					+ "Enter the two numbers on the grid you would like to flip separated by a space I.E.: 2 4 \n"
+					+ "If the two places on the grid match the spots will display the letters you found. \n"
+					+ "If the two places on the grid you selected do not match the letters will be shown briefly and then the \n"
+					+ "grid will be redrawn.\n";
+		
+		}
 }

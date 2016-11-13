@@ -4,145 +4,26 @@ import javax.swing.JFrame;
 
 public class MultiConcentrationTester {
 
-	//Auto increment test case number
-	public static int testCaseNumber = 1;
 	
-	public static boolean ClassTest(){
-		boolean allTestsPassed = true;
-		//Perform tests here
-		
-		// Test Case 1
-//		try{
-//				String[] args = {"-t", "1"};
-//			MultiConcentration.main(args);
-//			System.out.println("Test Case " + testCaseNumber + " Passed");
-//		}
-//		catch(Exception e){
-//			allTestsPassed = false;
-//			System.out.println("Test Case " + testCaseNumber + " Failed");
-//
-//		}
-//		testCaseNumber++;
-//		// Test Case 2
-//		try{
-//				String[] args = {"-t", "2"};
-//			MultiConcentration.main(args);
-//			System.out.println("Test Case " + testCaseNumber + " Passed");
-//		}
-//		catch(Exception e){
-//			allTestsPassed = false;
-//			System.out.println("Test Case " + testCaseNumber + " Failed");
-//
-//		}
-//		testCaseNumber++;
-//		// Test Case 3
-//		try{
-//				String[] args = {"-t", "3"};
-//			MultiConcentration.main(args);
-//			System.out.println("Test Case " + testCaseNumber + " Passed");
-//		}
-//		catch(Exception e){
-//			allTestsPassed = false;
-//			System.out.println("Test Case " + testCaseNumber + " Failed");
-//
-//		}
-//		testCaseNumber++;
-//		// Test Case 4
-//		try{
-//				String[] args = {"-t", "4"};
-//			MultiConcentration.main(args);
-//			System.out.println("Test Case " + testCaseNumber + " Passed");
-//		}
-//		catch(Exception e){
-//			allTestsPassed = false;
-//			System.out.println("Test Case " + testCaseNumber + " Failed");
-//
-//		}
-//		testCaseNumber++;
-//		// Test Case 5
-//		try{
-//				String[] args = {"-t", "5"};
-//			MultiConcentration.main(args);
-//			System.out.println("Test Case " + testCaseNumber + " Passed");
-//		}
-//		catch(Exception e){
-//			allTestsPassed = false;
-//			System.out.println("Test Case " + testCaseNumber + " Failed");
-//
-//		}
-//		testCaseNumber++;
-//		// Test Case 6
-//		try{
-//				String[] args = {"-t", "6"};
-//			MultiConcentration.main(args);
-//			System.out.println("Test Case " + testCaseNumber + " Passed");
-//		}
-//		catch(Exception e){
-//			allTestsPassed = false;
-//			System.out.println("Test Case " + testCaseNumber + " Failed");
-//
-//		}
-//		testCaseNumber++;
-//		// Test Case 7
-//		try{
-//				String[] args = {"-t", "7"};
-//			MultiConcentration.main(args);
-//			System.out.println("Test Case " + testCaseNumber + " Passed");
-//		}
-//		catch(Exception e){
-//			allTestsPassed = false;
-//			System.out.println("Test Case " + testCaseNumber + " Failed");
-//
-//		}
-//		testCaseNumber++;
-//		// Test Case 8
-//		try{
-//				String[] args = {"-t", "8"};
-//			MultiConcentration.main(args);
-//			System.out.println("Test Case " + testCaseNumber + " Passed");
-//		}
-//		catch(Exception e){
-//			allTestsPassed = false;
-//			System.out.println("Test Case " + testCaseNumber + " Failed");
-//		
-//		}
-//		testCaseNumber++;
-//		// Test Case 8
-//		try{
-//				String[] args = {"-t", "8"};
-//			MultiConcentration.main(args);
-//			System.out.println("Test Case " + testCaseNumber + " Passed");
-//		}
-//		catch(Exception e){
-//			allTestsPassed = false;
-//			System.out.println("Test Case " + testCaseNumber + " Failed");
-//		
-//		}
-//		testCaseNumber++;
-//		
-//		
-//		
-		
-		//Example of how to enter args into the main method of the "Main" class.
-//		String[] args = {"-t", "2"};
-//		Main.main(args);
-		return allTestsPassed;
-	}
-	
+
+	/*
+	 * This method tests the CLILogic class and all of the functions inside.
+	 */
 	public static boolean CLILogicClassTest(){
 		boolean testsPass = true;
+		int testCaseCategory = 3;
+		int testCaseSection = 4;
 		int testCaseNumber = 1;
-		ArrayList<ArrayList<Tile>> testGrid1 = new Logic().generateGrid(2);
 		//Coverage Tests
 		{
 		// Test Case 1
 			try{
 				int _gridSize = 2;
 				new CLILogic(new Logic().generateGrid(_gridSize), _gridSize);
-				System.out.println("Test Case " + testCaseNumber + " Passed");
+				System.out.println("CLI Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Passed");
 	
 			}catch (Exception e){
-				System.out.println("Test Case " + testCaseNumber + " Failed");
+				System.out.println("CLI Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Failed");
 	
 			}
 				testCaseNumber++;
@@ -151,11 +32,11 @@ public class MultiConcentrationTester {
 			try{
 				int _gridSize = 2;
 				if(new CLILogic(new Logic().generateGrid(_gridSize), _gridSize).validSelection(2, 3))
-				System.out.println("Test Case " + testCaseNumber + " Passed");
+				System.out.println("CLI Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Passed");
 				else
-					System.out.println("Test Case " + testCaseNumber + " Failed");	
+					System.out.println("CLI Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Failed");	
 			}catch (Exception e){
-				System.out.println("Test Case " + testCaseNumber + " Failed");
+				System.out.println("CLI Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Failed");
 	
 			}
 				testCaseNumber++;
@@ -164,66 +45,94 @@ public class MultiConcentrationTester {
 			try{
 				int _gridSize = 2;
 				if(new CLILogic(new Logic().generateGrid(_gridSize), _gridSize).getTile(_gridSize) != null)
-				System.out.println("Test Case " + testCaseNumber + " Passed");
+				System.out.println("CLI Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Passed");
 				else
-					System.out.println("Test Case " + testCaseNumber + " Failed");
+					System.out.println("CLI Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Failed");
 			}catch (Exception e){
-				System.out.println("Test Case " + testCaseNumber + " Failed");
+				System.out.println("CLI Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Failed");
 	
 			}
 				testCaseNumber++;
 			
-			// Test Case 4
+			// Test Case 4 -- display game grid without any matches
 			try{
 				int _gridSize = 2;
 				new CLILogic(new Logic().generateGrid(_gridSize), _gridSize).displayGameGrid();
-				System.out.println("Test Case " + testCaseNumber + " Passed");
+				System.out.println("CLI Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Passed");
 			}catch (Exception e){
-				System.out.println("Test Case " + testCaseNumber + " Failed");
+				System.out.println("CLI Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Failed");
 	
 			}
 				testCaseNumber++;
-			// Test Case 5
+				
+			// Test Case 5 -- display game grid with at least one matching pair
 			try{
 				int _gridSize = 2;
+				ArrayList<ArrayList<Tile>> holdThis = new Logic().generateGrid(_gridSize);
+				holdThis.get(0).get(0).matchFound =true;
+				holdThis.get(0).get(1).matchFound = true;
+				CLILogic tempCLI = new CLILogic(holdThis, _gridSize);
+				tempCLI.displayGameGrid();
+				System.out.println("CLI Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Passed");
+			}catch (Exception e){
+				System.out.println("CLI Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Failed");
+	
+			}
+				testCaseNumber++;	
+			
+			// Test Case 6 -- display letter grid
+			try{
+				int _gridSize = 2;
+				
 				new CLILogic(new Logic().generateGrid(_gridSize), _gridSize).displayLetterGrid();
-				System.out.println("Test Case " + testCaseNumber + " Passed");
+				System.out.println("CLI Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Passed");
 			}catch (Exception e){
-				System.out.println("Test Case " + testCaseNumber + " Failed");
-	
-			}
-				testCaseNumber++;
-			// Test Case 6
-			try{
-				int _gridSize = 2;
-				new CLILogic(new Logic().generateGrid(_gridSize), _gridSize).clearScreen();
-				System.out.println("Test Case " + testCaseNumber + " Passed");
-			}catch (Exception e){
-				System.out.println("Test Case " + testCaseNumber + " Failed");
+				System.out.println("CLI Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Failed");
 	
 			}
 				testCaseNumber++;
 			// Test Case 7
 			try{
 				int _gridSize = 2;
-				new CLILogic(new Logic().generateGrid(_gridSize), _gridSize).delayGame();
-				System.out.println("Test Case " + testCaseNumber + " Passed");
+				new CLILogic(new Logic().generateGrid(_gridSize), _gridSize).clearScreen();
+				System.out.println("CLI Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Passed");
 			}catch (Exception e){
-				System.out.println("Test Case " + testCaseNumber + " Failed");
+				System.out.println("CLI Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Failed");
 	
 			}
 				testCaseNumber++;
 			// Test Case 8
 			try{
 				int _gridSize = 2;
-				new CLILogic(new Logic().generateGrid(_gridSize), _gridSize).dsplyWrongGuessLtrs(_gridSize, _gridSize+1);
-				System.out.println("Test Case " + testCaseNumber + " Passed");
+				new CLILogic(new Logic().generateGrid(_gridSize), _gridSize).delayGame();
+				System.out.println("CLI Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Passed");
 			}catch (Exception e){
-				System.out.println("Test Case " + testCaseNumber + " Failed");
+				System.out.println("CLI Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Failed");
 	
 			}
 				testCaseNumber++;
-		
+			// Test Case 9
+			try{
+				int _gridSize = 2;
+				new CLILogic(new Logic().generateGrid(_gridSize), _gridSize).dsplyWrongGuessLtrs(_gridSize, _gridSize+1);
+				System.out.println("CLI Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Passed");
+			}catch (Exception e){
+				System.out.println("CLI Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Failed");
+	
+			}
+				testCaseNumber++;
+				
+			// Test Case 10 -- print welcome message
+			try{
+				int _gridSize = 2;
+				System.out.println(new CLILogic().welcomeMessage());
+				System.out.println("CLI Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Passed");
+
+			}catch (Exception e){
+				System.out.println("CLI Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Failed");
+	
+			}
+				testCaseNumber++;
 		
 		}
 		
@@ -243,6 +152,7 @@ public class MultiConcentrationTester {
 	 */
 	public static boolean GUILogicClassTest(){
 		boolean testsPass = true;
+		
 		int testCaseNumber = 1;
 		GUILogic GUILogic;
 		// Test Case 1
@@ -309,7 +219,7 @@ public class MultiConcentrationTester {
 					testCaseFrame.setVisible(false);
 					
 					System.out.println("Test Case " + testCaseNumber + " Passed");
-
+						testCaseFrame.dispose();
 				}catch (Exception e){
 					System.out.println("Test Case " + testCaseNumber + " Failed");
 				}
@@ -317,7 +227,107 @@ public class MultiConcentrationTester {
 				
 		return testsPass;
 	}
+	/*
+	 * Tests all of the functions in the Logic Class
+	 */
+	public static boolean LogicClassTest(){
+		boolean testsPass = true;
+		int testCaseCategory = 3;
+		int testCaseSection = 5;
+		int testCaseNumber = 1;
+		//coverage tests
+		{
+			// Test Case 1 -- generate 2d arraylist with _gridSize elements.
+			try{
+				int _gridSize = 2;
+				if (new Logic().generateGrid(_gridSize).size() == _gridSize)
+					System.out.println("Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Passed");
+				else
+					System.out.println("Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Failed");
+	
+			}catch (Exception e){
+				System.out.println("Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Failed");
+	
+			}
+				testCaseNumber++;
+				
+			// Test Case 2 -- Generate charlist, length 4
+			try{
+				int _gridSize = 2;
+				if(new Logic().generateCharList(_gridSize).length() == (_gridSize * _gridSize))
+					System.out.println("Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Passed");
+				else
+					System.out.println("Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Failed");
 
+			}catch (Exception e){
+				System.out.println("Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Failed");
+	
+			}
+				testCaseNumber++;
+
+			// Test Case 3 -- Evaluate match, True
+			try{
+				int _gridSize = 2;
+				Tile t1 = new Tile(1, 'A');
+				Tile t2 = new Tile(2, 'A');
+				if(new Logic().evaluateMatch(t1, t2))
+					System.out.println("Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Passed");
+				else
+					System.out.println("Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Failed");
+
+			}catch (Exception e){
+				System.out.println("Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Failed");
+	
+			}
+				testCaseNumber++;	
+				
+			// Test Case 4 -- Evaluate match, False
+			try{
+				int _gridSize = 2;
+				Tile t1 = new Tile(1, 'A');
+				Tile t2 = new Tile(2, 'B');
+				if(!new Logic().evaluateMatch(t1, t2))
+					System.out.println("Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Passed");
+				else
+					System.out.println("Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Failed");
+
+			}catch (Exception e){
+				System.out.println("Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Failed");
+	
+			}
+				testCaseNumber++;
+				
+			// Test Case 5 -- Is game finished? , False
+			try{
+				int _gridSize = 2;
+				if(!new Logic().gameFinished(new Logic().generateGrid(_gridSize)))
+					System.out.println("Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Passed");
+				else
+					System.out.println("Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Failed");
+
+			}catch (Exception e){
+				System.out.println("Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Failed");
+	
+			}
+				testCaseNumber++;
+			// Test Case 6 -- print welcome message
+			try{
+				int _gridSize = 2;
+				System.out.println(new GUILogic().welcomeMessage());
+				System.out.println("Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Passed");
+
+			}catch (Exception e){
+				System.out.println("Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Failed");
+	
+			}
+				testCaseNumber++;
+		}
+		
+		
+		return testsPass;
+	}
+	
+	
 	public static void main(String[] args) {
 		boolean allTestsPassed = true;
 		if(!CLILogicClassTest())
@@ -325,6 +335,9 @@ public class MultiConcentrationTester {
 		
 		if(!GUILogicClassTest())
 			allTestsPassed= false;
+		
+		if(!LogicClassTest())
+			allTestsPassed = false;
 		
 		if (allTestsPassed) {
 			System.out.println("All tests successfully passed");

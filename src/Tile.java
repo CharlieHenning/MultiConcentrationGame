@@ -21,11 +21,4 @@ public class Tile {
 		this.ID = ID;
 		this.Letter = Letter;
 	}
-	/*
-	 * Method that tests all of the methods in this class.
-	 */
-	public boolean classTest(){
-		boolean testsPass = true;
-		return testsPass;
-	}
 }

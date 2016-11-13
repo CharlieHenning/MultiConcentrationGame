@@ -27,7 +27,7 @@ public class CLI {
 		 
 		do{
 			//Welcome and rules are displayed
-			System.out.println(logicClass.welcomeMessage());
+			System.out.println(cliLogic.welcomeMessage());
 			
 			System.out.println("To begin playing enter 'y', 'q' to quit or anything else to see the directions again.");
 			//startGame
@@ -69,7 +69,7 @@ public class CLI {
 				
 				input = s.nextLine();
 				if(input.equalsIgnoreCase("R")){
-					cliLogic.newGame();
+					newGame();
 					System.exit(0);
 				}
 				if(input.equalsIgnoreCase("Q")){
@@ -131,12 +131,19 @@ public class CLI {
 		System.out.println("Congratulations! You Win!");
 			System.out.println("If  you'd like to play again enter 'y' press anything else to quit");
 			if(s.nextLine().equalsIgnoreCase("y")){
-				cliLogic.newGame();
+				newGame();
 			}
 			else{
 				System.out.println("Thanks for playing!");
 			}
 		System.exit(0);
+	}
+	
+	/*
+	 *Creates a new instance on the CLI class to restart the game. 
+	 */
+	public void newGame(){
+		CLI newGame = new CLI(GridSize);
 	}
 	
 	
