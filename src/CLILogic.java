@@ -80,7 +80,7 @@ public class CLILogic {
 	public void delayGame(){
 		//Waits for 10 seconds
 		try {
-			Thread.sleep(1);
+			Thread.sleep(10000);
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
