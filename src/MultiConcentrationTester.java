@@ -155,11 +155,10 @@ public class MultiConcentrationTester {
 		
 		int testCaseNumber = 1;
 		GUILogic GUILogic;
+		
 		// Test Case 1
 		try{
 			GUILogic = new GUILogic();
-			
-			ArrayList<TileButton<Tile>> tileBtnAry = new ArrayList<TileButton<Tile>>();
 			
 			Tile tile1 = new Tile(1, 'A');
 			tile1.setMatchFound(false);
@@ -169,11 +168,6 @@ public class MultiConcentrationTester {
 			
 			TileButton<Tile> tileBtton1 = GUILogic.SetTileFormatting(tile1);
 			TileButton<Tile> tileBtton2 = GUILogic.SetTileFormatting(tile2);
-						
-			tileBtnAry.add(tileBtton1);
-			tileBtnAry.add(tileBtton2);
-			
-			GUILogic.HideCards(tileBtnAry);
 			
 			System.out.println("Test Case " + testCaseNumber + " Passed");
 
@@ -200,6 +194,33 @@ public class MultiConcentrationTester {
 				tileBtnAry.add(tileBtton1);
 				tileBtnAry.add(tileBtton2);
 				
+				GUILogic.HideCards(tileBtnAry);
+				
+				System.out.println("Test Case " + testCaseNumber + " Passed");
+
+			}catch (Exception e){
+				System.out.println("Test Case " + testCaseNumber + " Failed");
+			}
+				testCaseNumber++;
+				
+			//Test Case 3
+			try{
+				GUILogic = new GUILogic();
+				
+				ArrayList<TileButton<Tile>> tileBtnAry = new ArrayList<TileButton<Tile>>();
+				
+				Tile tile1 = new Tile(1, 'A');
+				tile1.setMatchFound(false);
+				
+				Tile tile2 = new Tile(2, 'B');
+				tile2.setMatchFound(true);
+				
+				TileButton<Tile> tileBtton1 = GUILogic.SetTileFormatting(tile1);
+				TileButton<Tile> tileBtton2 = GUILogic.SetTileFormatting(tile2);
+							
+				tileBtnAry.add(tileBtton1);
+				tileBtnAry.add(tileBtton2);
+				
 				GUILogic.RemoveTileImages(tileBtnAry);
 				
 				System.out.println("Test Case " + testCaseNumber + " Passed");
@@ -209,7 +230,7 @@ public class MultiConcentrationTester {
 			}
 				testCaseNumber++;
 				
-				// Test Case 3
+				// Test Case 4
 				try{
 					GUILogic = new GUILogic();
 					
