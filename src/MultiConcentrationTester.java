@@ -152,13 +152,16 @@ public class MultiConcentrationTester {
 	 */
 	public static boolean GUILogicClassTest(){
 		boolean testsPass = true;
-		
+		int testCaseCategory = 3;
+		int testCaseSection = 5;
 		int testCaseNumber = 1;
-		GUILogic GUILogic;
 		
+		GUILogic GUILogic;
 		// Test Case 1
 		try{
 			GUILogic = new GUILogic();
+			
+			ArrayList<TileButton<Tile>> tileBtnAry = new ArrayList<TileButton<Tile>>();
 			
 			Tile tile1 = new Tile(1, 'A');
 			tile1.setMatchFound(false);
@@ -168,11 +171,16 @@ public class MultiConcentrationTester {
 			
 			TileButton<Tile> tileBtton1 = GUILogic.SetTileFormatting(tile1);
 			TileButton<Tile> tileBtton2 = GUILogic.SetTileFormatting(tile2);
+						
+			tileBtnAry.add(tileBtton1);
+			tileBtnAry.add(tileBtton2);
 			
-			System.out.println("Test Case " + testCaseNumber + " Passed");
+			GUILogic.HideCards(tileBtnAry);
+			
+			System.out.println("GUI Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Passed");
 
 		}catch (Exception e){
-			System.out.println("Test Case " + testCaseNumber + " Failed");
+			System.out.println("GUI Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Failed");
 		}
 			testCaseNumber++;
 		
@@ -194,43 +202,16 @@ public class MultiConcentrationTester {
 				tileBtnAry.add(tileBtton1);
 				tileBtnAry.add(tileBtton2);
 				
-				GUILogic.HideCards(tileBtnAry);
-				
-				System.out.println("Test Case " + testCaseNumber + " Passed");
-
-			}catch (Exception e){
-				System.out.println("Test Case " + testCaseNumber + " Failed");
-			}
-				testCaseNumber++;
-				
-			//Test Case 3
-			try{
-				GUILogic = new GUILogic();
-				
-				ArrayList<TileButton<Tile>> tileBtnAry = new ArrayList<TileButton<Tile>>();
-				
-				Tile tile1 = new Tile(1, 'A');
-				tile1.setMatchFound(false);
-				
-				Tile tile2 = new Tile(2, 'B');
-				tile2.setMatchFound(true);
-				
-				TileButton<Tile> tileBtton1 = GUILogic.SetTileFormatting(tile1);
-				TileButton<Tile> tileBtton2 = GUILogic.SetTileFormatting(tile2);
-							
-				tileBtnAry.add(tileBtton1);
-				tileBtnAry.add(tileBtton2);
-				
 				GUILogic.RemoveTileImages(tileBtnAry);
 				
-				System.out.println("Test Case " + testCaseNumber + " Passed");
+				System.out.println("GUI Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Passed");
 
 			}catch (Exception e){
-				System.out.println("Test Case " + testCaseNumber + " Failed");
+				System.out.println("GUI Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Failed");
 			}
 				testCaseNumber++;
 				
-				// Test Case 4
+				// Test Case 3
 				try{
 					GUILogic = new GUILogic();
 					
@@ -239,13 +220,24 @@ public class MultiConcentrationTester {
 					testCaseFrame.setVisible(true);
 					testCaseFrame.setVisible(false);
 					
-					System.out.println("Test Case " + testCaseNumber + " Passed");
+					System.out.println("GUI Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Passed");
 						testCaseFrame.dispose();
 				}catch (Exception e){
-					System.out.println("Test Case " + testCaseNumber + " Failed");
+					System.out.println("GUI Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Failed");
 				}
 					testCaseNumber++;
 				
+			// Test Case 4
+			try{
+				int _gridSize = 2;
+				System.out.println(new GUILogic().welcomeMessage());
+				System.out.println("GUI Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Passed");
+
+			}catch (Exception e){
+				System.out.println("GUI Logic Test Case " + testCaseCategory + "." + testCaseSection + "." + testCaseNumber + " Failed");
+	
+			}
+				testCaseNumber++;
 		return testsPass;
 	}
 	/*
@@ -254,7 +246,7 @@ public class MultiConcentrationTester {
 	public static boolean LogicClassTest(){
 		boolean testsPass = true;
 		int testCaseCategory = 3;
-		int testCaseSection = 5;
+		int testCaseSection = 6;
 		int testCaseNumber = 1;
 		//coverage tests
 		{
