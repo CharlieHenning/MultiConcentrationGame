@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+
 public class MultiConcentrationTester {
 
 	//Auto increment test case number
@@ -234,12 +236,96 @@ public class MultiConcentrationTester {
 		
 		return testsPass;
 	}
+	
+	/*
+	 * Tests methods in GUILogic class
+	 * Since GUI methods are user-driven, cannot generate automated tests with current testing tools
+	 */
+	public static boolean GUILogicClassTest(){
+		boolean testsPass = true;
+		int testCaseNumber = 1;
+		GUILogic GUILogic;
+		// Test Case 1
+		try{
+			GUILogic = new GUILogic();
+			
+			ArrayList<TileButton<Tile>> tileBtnAry = new ArrayList<TileButton<Tile>>();
+			
+			Tile tile1 = new Tile(1, 'A');
+			tile1.setMatchFound(false);
+			
+			Tile tile2 = new Tile(2, 'B');
+			tile2.setMatchFound(true);
+			
+			TileButton<Tile> tileBtton1 = GUILogic.SetTileFormatting(tile1);
+			TileButton<Tile> tileBtton2 = GUILogic.SetTileFormatting(tile2);
+						
+			tileBtnAry.add(tileBtton1);
+			tileBtnAry.add(tileBtton2);
+			
+			GUILogic.HideCards(tileBtnAry);
+			
+			System.out.println("Test Case " + testCaseNumber + " Passed");
+
+		}catch (Exception e){
+			System.out.println("Test Case " + testCaseNumber + " Failed");
+		}
+			testCaseNumber++;
+		
+			// Test Case 2
+			try{
+				GUILogic = new GUILogic();
+				
+				ArrayList<TileButton<Tile>> tileBtnAry = new ArrayList<TileButton<Tile>>();
+				
+				Tile tile1 = new Tile(1, 'A');
+				tile1.setMatchFound(false);
+				
+				Tile tile2 = new Tile(2, 'B');
+				tile2.setMatchFound(true);
+				
+				TileButton<Tile> tileBtton1 = GUILogic.SetTileFormatting(tile1);
+				TileButton<Tile> tileBtton2 = GUILogic.SetTileFormatting(tile2);
+							
+				tileBtnAry.add(tileBtton1);
+				tileBtnAry.add(tileBtton2);
+				
+				GUILogic.RemoveTileImages(tileBtnAry);
+				
+				System.out.println("Test Case " + testCaseNumber + " Passed");
+
+			}catch (Exception e){
+				System.out.println("Test Case " + testCaseNumber + " Failed");
+			}
+				testCaseNumber++;
+				
+				// Test Case 3
+				try{
+					GUILogic = new GUILogic();
+					
+					JFrame testCaseFrame = GUILogic.GetGameWindowFormatting();
+					
+					testCaseFrame.setVisible(true);
+					testCaseFrame.setVisible(false);
+					
+					System.out.println("Test Case " + testCaseNumber + " Passed");
+
+				}catch (Exception e){
+					System.out.println("Test Case " + testCaseNumber + " Failed");
+				}
+					testCaseNumber++;
+				
+		return testsPass;
+	}
 
 	public static void main(String[] args) {
-		boolean allTestsPassed = false;
-		if(CLILogicClassTest())
-			allTestsPassed= true; 
-
+		boolean allTestsPassed = true;
+		if(!CLILogicClassTest())
+			allTestsPassed= false;
+		
+		if(!GUILogicClassTest())
+			allTestsPassed= false;
+		
 		if (allTestsPassed) {
 			System.out.println("All tests successfully passed");
 		} else {
